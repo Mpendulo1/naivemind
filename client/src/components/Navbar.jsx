@@ -53,7 +53,7 @@ export function Navbar({navIsOpen, toggleNav}) {
             <MenuIcon callbackFunction={toggleNav} />
             {
                 navIsOpen === true ? 
-                <div className="h-screen max-w-prose bg-indigo-500 drop-shadow-xl py-4 pl-20 pr-2 absolute top-0 right-0 flex flex-col justify-start sm:hidden">
+                <div className="h-screen max-w-prose bg-indigo-500 drop-shadow-xl py-4 pl-20 pr-2 absolute z-10 top-0 right-0 flex flex-col justify-start sm:hidden">
                     <Link onClick={() => toggleNav()} className="w-full text-right p-1 text-2xl text-yellow-50 active:underline underline-offset-4" to="/">Home</Link>
                     <Link onClick={() => toggleNav()} className="w-full text-right p-1 text-2xl text-yellow-50 active:underline underline-offset-4" to="/model">Model</Link>
                 </div>
