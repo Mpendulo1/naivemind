@@ -24,7 +24,7 @@ export function NavButton() {
     return(
         <Link to={url}>
         <div className={`${dir==="back" ? "flex-row-reverse" : "flex"} flex justify-between my-4 px-4 py-2 border-2 border-solid rounded border-purple-400 md:hidden`}>
-            <p className="uppercase text-lg text-purple-400">{text}</p>
+            <p className="uppercase text-base text-purple-400">{text}</p>
             { dir === "back" ? <BackArrow /> : dir === "forward" ? <ForwardArrow /> : null}
         </div>
         </Link>
