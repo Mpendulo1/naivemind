@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 import { NavButton } from "../components/NavButton";
-import Form from "../components/Form";
+import FormFields from "../components/FormFields";
 
 let API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -65,7 +65,7 @@ function Model() {
                     <h1 className="absolute top-0 left-4 -translate-y-6 bg-yellow-50 text-4xl px-1 capitalize font-semibold text-center text-indigo-400">{model.name}</h1>
                     <p className="text-sm text-indigo-400 my-4" >{model.description}</p>
 
-                    <Form />
+                    <FormFields />
                 </div>
             }
         </div>
