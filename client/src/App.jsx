@@ -18,7 +18,7 @@ function App() {
   }
 
   return (
-    <div className="App h-screen bg-yellow-50 py-2 px-3">
+    <div className="App min-h-screen bg-yellow-50 py-2 px-3">
       <Router>
         <Navbar navIsOpen={navIsOpen} toggleNav={toggleNav} />
 
