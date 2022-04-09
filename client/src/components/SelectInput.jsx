@@ -1,6 +1,6 @@
 
 function SelectInput({label, field, helperText, options, ...props}) {
-
+  
   return (
     <div className="flex flex-col justify-start items-start w-full py-2">
         <label className="text-md font-semibold text-indigo-400 pb-1" htmlFor={field.name}>{label}</label>
