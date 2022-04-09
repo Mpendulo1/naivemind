@@ -4,6 +4,7 @@ import { useState } from "react";
 import "./index.css";
 
 import {Navbar} from "./components/Navbar";
+import { ModelContextProvider } from "./contexts/ModelContext";
 
 import Home from "./pages/Home";
 import Model from "./pages/Model";
@@ -22,11 +23,13 @@ function App() {
       <Router>
         <Navbar navIsOpen={navIsOpen} toggleNav={toggleNav} />
 
+        <ModelContextProvider>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/model" element={<Model />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </ModelContextProvider>
       </Router>
     </div>
   );

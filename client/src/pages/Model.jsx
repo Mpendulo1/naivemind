@@ -1,52 +1,16 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useEffect } from "react";
+import { useContext } from "react";
 
 import { NavButton } from "../components/NavButton";
 import FormFields from "../components/FormFields";
-
-let API_KEY = process.env.REACT_APP_API_KEY;
+import { ModelContext } from "../contexts/ModelContext"
 
 function Model() {
-    const [ isLoading, setIsLoading ] = useState(true);
-    const [ model, setModel ] = useState(null);
-
-    const instance = axios.create({
-        baseURL: 'https://api.up2tom.com/v3',
-        headers: {
-            "Authorization": `Token ${API_KEY}`,
-            "Content-Type": "application/vnd.api+json"
-        }
-    });
-
-    const getModelData = async () => {
-        try {
-            const res = await instance.get("/models/58d3bcf97c6b1644db73ad12");
-            const data = res.data.data.attributes;
-            setModel(data);
-            setIsLoading(false);
-        } catch (error) {
-            if (error.response) {
-              // The request was made and the server responded with a status code
-              // that falls out of the range of 2xx
-              console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
-            } else if (error.request) {
-              // The request was made but no response was received
-              // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-              // http.ClientRequest in node.js
-              console.log(error.request);
-            } else {
-              // Something happened in setting up the request that triggered an Error
-              console.log('Error', error.message);
-            }
-            console.log(error.config);
-        }
-    }
+    const { isLoading, model, getModelData } = useContext(ModelContext);
 
     useEffect( () => { 
         getModelData();
-    }, []);
+    }, [model]);
 
     return(
         <div className="min-h-screen">
