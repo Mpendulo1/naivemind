@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 import { NavButton } from "../components/NavButton";
+import Form from "../components/Form";
 
 let API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -64,58 +65,7 @@ function Model() {
                     <h1 className="absolute top-0 left-4 -translate-y-6 bg-yellow-50 text-4xl px-1 capitalize font-semibold text-center text-indigo-400">{model.name}</h1>
                     <p className="text-sm text-indigo-400 my-4" >{model.description}</p>
 
-                    <form action="" className="flex flex-col items-start">
-                        <label htmlFor="age" className="block mb-2 text-sm font-medium text-indigo-400">Age?</label>
-                            <input type="number" id="age" className="bg-yellow-50 border border-indigo-300 text-indigo-500 text-sm rounded block w-full p-2" placeholder="23 years" />
-                        <p className="mb-2 text-sm text-purple-400">Please provide a number between 1 and 90.</p>
-
-                        <label htmlFor="gender" className="block mb-2 text-sm font-medium text-indigo-400">Gender?</label>
-                        <select id="gender"className="bg-yellow-50 border border-indigo-300 text-indigo-500 text-sm rounded block w-full p-2 mb-2" >
-                            <option>Female</option>
-                            <option>Male</option>
-                        </select>
-
-                        <label htmlFor="pregnant" className="block mb-2 text-sm font-medium text-indigo-400">Pregnant?</label>
-                        <select id="pregnant"className="bg-yellow-50 border border-indigo-300 text-indigo-500 text-sm rounded block w-full p-2 mb-2" >
-                            <option>No</option>
-                            <option>Yes</option>
-                            <option>NA</option>
-                        </select>
-
-                        <label htmlFor="caffeine" className="block mb-2 text-sm font-medium text-indigo-400">Sensitive to caffeine?</label>
-                        <select id="caffeine"className="bg-yellow-50 border border-indigo-300 text-indigo-500 text-sm rounded block w-full p-2 mb-2" >
-                            <option>No</option>
-                            <option>Yes</option>
-                            <option>Not sure</option>
-                        </select>
-
-                        <label htmlFor="health" className="block mb-2 text-sm font-medium text-indigo-400">Health conscious?</label>
-                        <select id="health"className="bg-yellow-50 border border-indigo-300 text-indigo-500 text-sm rounded block w-full p-2 mb-2" >
-                            <option>No</option>
-                            <option>Yes</option>
-                        </select>
-
-                        <label htmlFor="time" className="block mb-2 text-sm font-medium text-indigo-400">Time of day?</label>
-                        <select id="time"className="bg-yellow-50 border border-indigo-300 text-indigo-500 text-sm rounded block w-full p-2 mb-2" >
-                            <option>Morning</option>
-                            <option>Afternoon</option>
-                            <option>Evening</option>
-                        </select>
-
-                        <label htmlFor="temperature" className="block mb-2 text-sm font-medium text-indigo-400">Temperature?</label>
-                            <input type="number" id="temperature" className="bg-yellow-50 border border-indigo-300 text-indigo-500 text-sm rounded block w-full p-2" placeholder="40 ℃" />
-                        <p className="mb-2 text-sm text-purple-400">Please provide a number between -10 and 45.</p>
-
-                        <label htmlFor="quota" className="block mb-2 text-sm font-medium text-indigo-400">Number of drinks consumed per day?</label>
-                            <input type="number" id="quota" className="bg-yellow-50 border border-indigo-300 text-indigo-500 text-sm rounded block w-full p-2" placeholder="3" />
-                        <p className="mb-2 text-sm text-purple-400">Please provide a number between 0 and 20.</p>
-
-                        <label htmlFor="drinks" className="block mb-2 text-sm font-medium text-indigo-400">Number of drinks consumed today?</label>
-                            <input type="number" id="drinks" className="bg-yellow-50 border border-indigo-300 text-indigo-500 text-sm rounded block w-full p-2" placeholder="0" />
-                        <p className="mb-2 text-sm text-purple-400">Please provide a number between 0 and 20.</p>
-
-                        <button type="submit" className="uppercase self-end bg-purple-400 text-xl text-white font-bold px-4 py-1.5 my-4 rounded shadow-md" >compute</button>
-                    </form>
+                    <Form />
                 </div>
             }
         </div>
