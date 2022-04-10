@@ -1,10 +1,29 @@
+
+const Scenario = require("../models/scenarioModel");
+
 /*
   @desc   add scenario
   @route  POST /scenarios/add
   @access private
 */
-const addScenario = (req, res) => {
-    res.status(201).json({msg: "scenario saved to database"})
+const addScenario = async (req, res) => {
+  const data = req.body;
+  let id = data.id;
+  const scenario = new Scenario(data);
+  const duplicates = await Scenario.findOne({id});
+  let error;
+
+  if (!duplicates) {
+    await scenario.save(function (err) {
+      error = err;
+    });
+  }
+  if (!duplicates && !error) {
+    res.status(201);
+  }
+  else if (duplicates) {
+    res.status(409).json(error);
+  }
 }
 
 /*
