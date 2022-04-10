@@ -6,8 +6,11 @@ const dataRoutes = require("./routes/data.routes");
 
 const PORT = process.env.PORT || 5000;
 
-const app = express();
 const router = express.Router();
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({extended: false}))
 
 app.use('/models', modelRoutes)
 app.use('/scenarios', dataRoutes)
