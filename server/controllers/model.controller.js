@@ -1,6 +1,6 @@
 /*
   @desc   get model metadata
-  @route  GET /models/id
+  @route  GET /models/:id
   @access public
 */
 const getModel = (req, res) => {
