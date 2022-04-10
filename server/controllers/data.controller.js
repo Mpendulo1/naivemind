@@ -19,10 +19,12 @@ const addScenario = async (req, res) => {
     });
   }
   if (!duplicates && !error) {
+    console.log("created");
     res.status(201);
   }
   else if (duplicates) {
     res.status(409).json(error);
+    console.log("409");
   }
 }
 
