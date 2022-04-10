@@ -10,7 +10,8 @@ export const ModelContextProvider = ({children}) => {
     const [model, setModel] = useState(null);
     const [isLoading, setIsLoading ] = useState(true);
     const [isComputing, setIsComputing ] = useState(false);
-    const [tempData, setTempData] = useState(null);
+    const [isSaving, setIsSaving] = useState(false);
+    const [temp, setTemp] = useState({data: null, isDuplicate: false});
     const [simulationData, setSimulationData] = useState([]);
 
     const instance = axios.create({
@@ -21,13 +22,39 @@ export const ModelContextProvider = ({children}) => {
         }
     });
 
-    const addData = () => {
-        let duplicate = simulationData.filter( data => data.id === tempData.id);
+    const addData = async () => {
+        let duplicate = simulationData.filter( data => data.id === temp.data.id);
         if (duplicate.length === 0) {
-            setSimulationData(prevState => [...prevState, tempData]);
+          setIsSaving(true);
+            setSimulationData(prevState => [...prevState, temp.data]);
+            try {
+                const res = await axios.post('/scenarios/add',temp.data);
+                if (res && res.data.Error) {
+                  setIsSaving(false);
+                  setTemp({data:temp.data, isDuplicate:true});
+                  return;
+                }
+                setIsSaving(false);
+            } catch (error) {
+                if (error.response) {
+                  // The request was made and the server responded with a status code
+                  // that falls out of the range of 2xx
+                  console.log(error.response.data);
+                } else if (error.request) {
+                  // The request was made but no response was received
+                  // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                  // http.ClientRequest in node.js
+                  console.log(error.request);
+                } else {
+                  // Something happened in setting up the request that triggered an Error
+                  console.log('Error', error.message);
+                }
+                console.log(error.config);
+            }
+            setTemp({data:null, isDuplicate:false});
+        } else {
+            setTemp({data:temp.data, isDuplicate:true});
         }
-        setTempData(null);
-        console.log(simulationData);
     }
 
     const getModelData = async () => {
@@ -42,8 +69,6 @@ export const ModelContextProvider = ({children}) => {
                   // The request was made and the server responded with a status code
                   // that falls out of the range of 2xx
                   console.log(error.response.data);
-                  console.log(error.response.status);
-                  console.log(error.response.headers);
                 } else if (error.request) {
                   // The request was made but no response was received
                   // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -72,7 +97,7 @@ export const ModelContextProvider = ({children}) => {
                   }
             });
             setIsComputing(false);
-            setTempData(res.data.data);
+            setTemp({data:res.data.data, isDuplicate:false});
         } catch (error) {
             if (error.response) {
               // The request was made and the server responded with a status code
@@ -94,7 +119,7 @@ export const ModelContextProvider = ({children}) => {
     }
 
     return(
-        <ModelContext.Provider value={{model, getModelData, isLoading, isComputing, getPrediction, tempData, setTempData, addData}}>
+        <ModelContext.Provider value={{model, getModelData, isLoading, isComputing, getPrediction, temp, setTemp, addData, isSaving}}>
             {children}
         </ModelContext.Provider>
     );
