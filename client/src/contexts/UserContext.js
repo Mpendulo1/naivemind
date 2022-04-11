@@ -9,6 +9,7 @@ export const UserContextProvider = ({ children }) => {
     return currUser || null;
   });
   const [formIsVisible, setFormIsVisible] = useState(false);
+  const [modalIsVisible, setModalIsVisble] = useState(false);
 
   const registerUser = async (e, data) => {
     e.preventDefault();
@@ -32,13 +33,27 @@ export const UserContextProvider = ({ children }) => {
     }
   };
 
+  const logoutUser = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+  };
+
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(user));
   }, [user]);
 
   return (
     <UserContext.Provider
-      value={{ user, registerUser, loginUser, formIsVisible, setFormIsVisible }}
+      value={{
+        user,
+        registerUser,
+        loginUser,
+        logoutUser,
+        formIsVisible,
+        setFormIsVisible,
+        modalIsVisible,
+        setModalIsVisble,
+      }}
     >
       {children}
     </UserContext.Provider>
