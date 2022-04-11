@@ -9,6 +9,7 @@ import { ModelContextProvider } from "./contexts/ModelContext";
 import Home from "./pages/Home";
 import Model from "./pages/Model";
 import NotFound from "./pages/NotFound";
+import { UserContextProvider } from "./contexts/UserContext";
 
 function App() {
 
@@ -23,13 +24,15 @@ function App() {
       <Router>
         <Navbar navIsOpen={navIsOpen} toggleNav={toggleNav} />
 
+        <UserContextProvider>
         <ModelContextProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/model" element={<Model />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/model" element={<Model />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </ModelContextProvider>
+        </UserContextProvider>
       </Router>
     </div>
   );
