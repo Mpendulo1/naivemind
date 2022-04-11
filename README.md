@@ -71,6 +71,11 @@ Run the command above from the root of the server folder to run the client and s
 | WARNING: Also, if you wish or have to change the server port number, remember to also change it on the proxy setting in the client app's package.json! |
 | --- |
 
+# Additional features implemented
+- [x] store simulation data in MongoDB
+- [x] authenticate users before given access to database
+- [x] process batched scenarios - implemented but buggy
+- [x] allow user to pick any model - implemented but also buggy
 
 
 
