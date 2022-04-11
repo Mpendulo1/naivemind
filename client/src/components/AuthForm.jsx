@@ -50,8 +50,8 @@ function AuthForm() {
     }
 
     return(
-        <div className={`flex flex-col items-center fixed w-3/4 pt-4 px-4 top-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-xl bg-white shadow-gray-700 shadow-2xl drop-shadow-4xl ${user ? "hidden" : formIsVisible ? "" : "hidden" }`}>
-            <p className="text-2xl font-bold text-indigo-500 capitalize">{label}</p>
+        <div className={`flex flex-col items-center fixed w-3/4 pt-4 px-4 top-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-xl bg-white shadow-gray-700 shadow-2xl drop-shadow-4xl ${user ? "hidden" : formIsVisible ? "" : "hidden" } md:w-1/2 aspect-auto`}>
+            <p className="text-2xl font-bold text-indigo-500 capitalize md:text-5xl md:py-14">{label}</p>
             <Formik onSubmit={(e) => handleSubmit(e)}>
                 <Form>
                     <Field 
@@ -72,11 +72,11 @@ function AuthForm() {
                         />
                 </Form>
             </Formik>
-            <div className="w-full flex justify-between">
+            <div className="w-full flex justify-between sm:justify-center gap-14">
                 <FormButton handleOnClick={() => setFormIsVisible(false)}  title="close" textColor='text-white' bgColor="bg-red-400" />
                 <FormButton handleOnClick={(e) => handleSubmit(e)} title={label} textColor="text-white" bgColor="bg-indigo-400" />
             </div>
-            <p className="pb-4 text-indigo-300">{label==="register" ? "Already regsitered?" : "Not Registered?"} <span onClick={toggleForm} className="text-indigo-500 font-bold cursor-pointer px-1">{label==="register" ? "Login" : "Register"}</span></p>
+            <p className="pb-4 text-indigo-300">{label==="register" ? "Already registered?" : "Not Registered?"} <span onClick={toggleForm} className="text-indigo-500 font-bold cursor-pointer px-1">{label==="register" ? "Login" : "Register"}</span></p>
         </div>
     );
 }

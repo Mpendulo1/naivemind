@@ -105,7 +105,7 @@ function FormFields() {
         }
         {
             !temp.data ?
-            <button type="submit" onClick={(e) => handleSubmit(e)} className={`uppercase bg-purple-400 hover:bg-purple-500 text-xl text-white font-bold px-4 py-1.5 my-4 rounded-lg shadow-md ${isComputing ? "hidden" : ""}`} >compute</button>
+            <button type="submit" onClick={(e) => handleSubmit(e)} className={`uppercase bg-purple-400 hover:bg-purple-500 text-xl text-white font-bold px-4 py-3 my-4 rounded-lg shadow-md ${isComputing ? "hidden" : ""}`} >compute</button>
             :
             <>
             {   temp.isDuplicate && 
