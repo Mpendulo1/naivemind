@@ -1,4 +1,3 @@
-
 const Scenario = require("../models/scenarioModel");
 
 /*
@@ -10,7 +9,7 @@ const addScenario = async (req, res) => {
   const data = req.body;
   let id = data.id;
   const scenario = new Scenario(data);
-  const duplicates = await Scenario.findOne({id});
+  const duplicates = await Scenario.findOne({ id });
   let error;
 
   if (!duplicates) {
@@ -19,22 +18,21 @@ const addScenario = async (req, res) => {
     });
   }
   if (!duplicates && !error) {
-    console.log("created");
-    res.status(201);
-  }
-  else if (duplicates) {
+    res.status(201).json(scenario);
+  } else if (duplicates) {
     res.status(409).json(error);
     console.log("409");
   }
-}
+};
 
 /*
   @desc   get list of saved scenrios
   @route  GET /scenarios
   @access private
 */
-const getScenarios = (req, res) => {
-    res.status(200).json({data: "list of saved scenarios"})
-}
+const getScenarios = async (req, res) => {
+  // const data = await Scenario.find();
+  res.status(200).json({ data: "list of saved scenarios" });
+};
 
-module.exports = { addScenario, getScenarios }
+module.exports = { addScenario, getScenarios };
