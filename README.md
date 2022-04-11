@@ -1,7 +1,7 @@
 # NaiveMind
 A web client for demo human expertise AI models.
 
-# Bilding the demo
+# Building the demo
 ## Clone this repo
 ```git
 git clone https://github.com/Mpendulo1/naivemind.git
@@ -66,7 +66,7 @@ yarn run dev
 ```
 Run the command above from the root of the server folder to run the client and server apps concurrently. 
 
-> :warning: **If you are using npm**: The app may fail to run because of discrepancies in the way _yarn_ and _npm_ handle relative paths!
+> :warning: **If you are using npm**: The app may fail to run because of discrepancies in the way _yarn_ and _npm_ handle relative paths! Use yarn to ensure the app works.
 
 | WARNING: Also, if you wish or have to change the server port number, remember to also change it on the proxy setting in the client app's package.json! |
 | --- |
