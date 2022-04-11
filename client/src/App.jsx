@@ -22,13 +22,13 @@ function App() {
   return (
     <div className="App min-h-screen bg-yellow-50 py-2 px-3">
       <Router>
-        <Navbar navIsOpen={navIsOpen} toggleNav={toggleNav} />
-
         <UserContextProvider>
         <ModelContextProvider>
+        <Navbar navIsOpen={navIsOpen} toggleNav={toggleNav} />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/model" element={<Model />} />
+            <Route path="/models/:id" element={<Model />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </ModelContextProvider>
