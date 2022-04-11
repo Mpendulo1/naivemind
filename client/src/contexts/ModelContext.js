@@ -8,6 +8,8 @@ let API_KEY = process.env.REACT_APP_API_KEY;
 
 export const ModelContextProvider = ({ children }) => {
   const [model, setModel] = useState(null);
+  const [models, setModels] = useState([]);
+  const [currModel, setCurrModel] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isComputing, setIsComputing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -22,6 +24,11 @@ export const ModelContextProvider = ({ children }) => {
       "Content-Type": "application/vnd.api+json",
     },
   });
+
+  const changeCurrModel = (id) => {
+    const nextModel = models.filter((m) => m.id === id)[0];
+    setCurrModel(nextModel);
+  };
 
   const addData = async () => {
     if (user) {
@@ -50,16 +57,10 @@ export const ModelContextProvider = ({ children }) => {
           setIsSaving(false);
         } catch (error) {
           if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
             console.log(error.response.data);
           } else if (error.request) {
-            // The request was made but no response was received
-            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-            // http.ClientRequest in node.js
             console.log(error.request);
           } else {
-            // Something happened in setting up the request that triggered an Error
             console.log("Error", error.message);
           }
           console.log(error.config);
@@ -74,25 +75,20 @@ export const ModelContextProvider = ({ children }) => {
     }
   };
 
-  const getModelData = async () => {
-    if (model == null) {
+  const getModelData = async (id) => {
+    if (model == null || model != currModel) {
+      setIsLoading(true);
       try {
-        const res = await instance.get("/models/58d3bcf97c6b1644db73ad12");
+        const res = await instance.get(`/models/${id}`);
         const data = res.data.data.attributes;
-        setModel(data);
         setIsLoading(false);
+        setModel(data);
       } catch (error) {
         if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
           console.log(error.response.data);
         } else if (error.request) {
-          // The request was made but no response was received
-          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-          // http.ClientRequest in node.js
           console.log(error.request);
         } else {
-          // Something happened in setting up the request that triggered an Error
           console.log("Error", error.message);
         }
         console.log(error.config);
@@ -117,21 +113,34 @@ export const ModelContextProvider = ({ children }) => {
       setTemp({ data: res.data.data, isDuplicate: false });
     } catch (error) {
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.log(error.response.data);
-        console.log(error.response.status);
         console.log(error.response.headers);
       } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
         console.log(error.request);
       } else {
-        // Something happened in setting up the request that triggered an Error
         console.log("Error", error.message);
       }
       console.log(error.config);
+      setIsComputing(false);
+    }
+  };
+
+  const getModels = async () => {
+    if (!models.length) {
+      try {
+        const res = await instance.get("/models");
+        setModels(res.data.data);
+      } catch (error) {
+        if (error.response) {
+          console.log(error.response.headers);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      }
+    } else {
+      return;
     }
   };
 
@@ -147,6 +156,9 @@ export const ModelContextProvider = ({ children }) => {
         setTemp,
         addData,
         isSaving,
+        getModels,
+        models,
+        changeCurrModel,
       }}
     >
       {children}
